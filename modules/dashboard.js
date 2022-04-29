@@ -1,5 +1,9 @@
  function dashboard(){
     const div=document.getElementById('app');
+    div.style.width='1000px'
+    const loading=`<h1 style="margin-top: '50%'">Loading...</h1>`
+    div.innerHTML=loading
+
     const token=localStorage.getItem('token');
     var accountHolderr;
     // var data;
@@ -12,47 +16,45 @@
           headers:header,
           redirect:"follow"
       }
-      alert(token)
-    //   loginFetch();
+      alert("Successfully Login!")
 
       async function loginFetch(){
-          const response=fetch('https://infinityuat.cbe.com.et:443/services/data/v1/RBObjects/operations/Accounts/getAccountsPostLogin',profileRequest);
+          const response=await fetch('https://infinityuat.cbe.com.et:443/services/data/v1/RBObjects/operations/Accounts/getAccountsPostLogin',profileRequest);
           if (!response.ok) {
             const message = `An error has occured: ${response.status}`;
-            throw new Error(message);
+            alert(message);
           }
           const data = await response.json();
-          alert(data)
-        //   return movies;     
-        //   then(response=>response.json())
-        //         .then(data=>{
-        //             data=data
-        //           accountHolderr=data.Accounts[0].accountHolder
-        //           // alert(accountHolderr.username + ""+ accountHolderr.username +''+data.Accounts[0].accountID )
         //           alert(JSON.stringify(data))
-        //       })
-        //           .catch(error=>alert(error))
-        //       }
-        //   );
-
+     
     return (
         div.innerHTML=(` <h1 id='h1'>Accounts Dashboard</h1>
         <div><table><tr>
-        <th>accountID</th>
-        <th>accountName</th>
-        <th>accountType</th>
-        <th>availableBalance</th>
-        <th>bankName</th>
-        <th>openingDate</th></tr>
-        <tr>
-        <th>${data.Accounts[0].openingDate}</th>
-        <th>natnaeltilahun97@gmail.com</th>
-        <th>${accountHolderr}</th></tr>
-        </table></div>`));
+            <th>Account ID</th>
+            <th>Account Name</th>
+            <th>Account Type</th>
+            <th>Bank Name</th>
+            <th>Opening Date</th>
+            <th>Available Balance</th>
+        </tr>
+    ${data.Accounts.map(function(value){
+        return `
+            <tr>
+            <th>${value.accountID}</th>
+            <th>${value.accountName}</th>
+            <th>${value.accountType}</th>
+            <th>${value.bankName}</th>
+            <th>${value.openingDate}</th>
+            <th>${value.availableBalance}</th>
+        </tr>`
+        
+    }).join('')
+}
+       </table></div>`));
     
       }
       loginFetch().catch(error => {
-        error.message; // 'An error has occurred: 404'
+        alert(error.message); // 'An error has occurred: 404'
     });
     };
     export default dashboard;
