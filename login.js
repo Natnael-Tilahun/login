@@ -3,11 +3,13 @@ const app = (function (id) {
     'use strict';
     const div = document.getElementById(id);
     var data = { UserName: '', Password: '' }
+    div.classList.add('mt-40')
     div.innerHTML = (` <h1 id='h1'>Login Page</h1>
-    <div><input type="text" id="username" placeholder="Username"></div>
-    <div><input type="password" id="password" placeholder="Password"></div>
+    <div><input type="text" id="username" placeholder="Username" class="border-2"></div>
+    <div><input type="password" id="password" placeholder="Password" class="border-2"></div>
    
-    <div><button id='loginBtn'>Login</button></div>`);
+    <div><button id='loginBtn'>Login</button></div>
+    <p class="pl-32 text-gray-700">Forget passowrd?</p>`);
 
 
     const loginBtn = document.getElementById('loginBtn');
